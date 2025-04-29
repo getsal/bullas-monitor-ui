@@ -32,6 +32,7 @@ try:
 except Exception as e:
     st.error(f"⚠️ データ読み込み失敗: {e}")
 
+# ✅ Cloud Run 起動時に PORT=8080 を正しくバインド
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     os.system(f"streamlit run app.py --server.port {port} --server.headless true")
