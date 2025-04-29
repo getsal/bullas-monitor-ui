@@ -5,7 +5,7 @@ from io import StringIO
 from datetime import datetime
 import os
 
-st.set_page_config(page_title="Bullas Spank Monitor", layout="wide")
+st.set_page_config(page_title="🐮 Bull ish Monitor", layout="wide")
 
 BUCKET_NAME = "bullas-spank-logs"
 date_str = datetime.utcnow().strftime("%Y-%m-%d")
