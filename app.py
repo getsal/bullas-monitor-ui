@@ -25,7 +25,6 @@ try:
 except Exception as e:
     st.error(f"読み込み失敗: {e}")
 
-# ✅ 正しいCloud Run向け起動コード
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     os.system(f"streamlit run app.py --server.port {port} --server.headless true")
