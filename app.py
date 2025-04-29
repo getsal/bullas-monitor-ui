@@ -23,14 +23,14 @@ try:
     latest = df.iloc[-1]
     st.title(f"🐻 Bullas Spank Monitor ({date_str})")
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("💥 1h Spank数", latest["last_1h_spank_count"])
-    col2.metric("🧍 ユニーク数", latest["unique_spanker_count_last_1h"])
-    col3.metric("🐋 ホエール数", latest["whale_spank_count_last_1h"])
-    col4.metric("⚡ Spank/分", latest["spank_per_minute"])
+    col1.metric("💥 Spank/lasthour", latest["last_1h_spank_count"])
+    col2.metric("🐮 Unique Bullas/hour ", latest["unique_spanker_count_last_1h"])
+    col3.metric("🐋 Whale Bulla", latest["whale_spank_count_last_1h"])
+    col4.metric("⚡ Spank/min", latest["spank_per_minute"])
     st.line_chart(df.set_index("timestamp")[["last_1h_spank_count", "regular_hit_count"]])
     st.dataframe(df.tail(20), use_container_width=True)
 except Exception as e:
-    st.error(f"⚠️ データ読み込み失敗: {e}")
+    st.error(f"⚠️ Failed load data. Mooooo!: {e}")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
