@@ -22,11 +22,12 @@ try:
     df = load_data(BUCKET_NAME, BLOB_NAME)
     latest = df.iloc[-1]
     st.title(f"🐮 Bull ish Monitor ({date_str})")
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, col5 = st.columns(5)
     col1.metric("💥 Spank/lasthour", latest["last_1h_spank_count"])
     col2.metric("🐮 Unique Bullas/hour ", latest["unique_spanker_count_last_1h"])
     col3.metric("🐋 Whale Bulla", latest["whale_spank_count_last_1h"])
     col4.metric("⚡ Spank/min", latest["spank_per_minute"])
+    col5.metric("⏳ Breadline expected", f"{average_breadline_hour:.2f} Hour!!")
     st.line_chart(df.set_index("timestamp")[["last_1h_spank_count", "regular_hit_count"]])
     st.dataframe(df.tail(20), use_container_width=True)
 except Exception as e:
