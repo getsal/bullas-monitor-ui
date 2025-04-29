@@ -21,7 +21,7 @@ def load_data(bucket_name, blob_name):
 try:
     df = load_data(BUCKET_NAME, BLOB_NAME)
     latest = df.iloc[-1]
-    st.title(f"🐻 Bullas Spank Monitor ({date_str})")
+    st.title(f"🐮 Bull ish Monitor ({date_str})")
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("💥 Spank/lasthour", latest["last_1h_spank_count"])
     col2.metric("🐮 Unique Bullas/hour ", latest["unique_spanker_count_last_1h"])
