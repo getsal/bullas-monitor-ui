@@ -2,12 +2,14 @@ import streamlit as st
 import pandas as pd
 from google.cloud import storage
 from io import StringIO
+from datetime import datetime
 import os
 
 st.set_page_config(page_title="Bullas Spank Monitor", layout="wide")
 
 BUCKET_NAME = "bullas-spank-logs"
-BLOB_NAME = "2025-04-30_spank_log.csv"
+date_str = datetime.utcnow().strftime("%Y-%m-%d")
+BLOB_NAME = f"{date_str}_spank_log.csv"
 
 @st.cache_data
 def load_data(bucket_name, blob_name):
@@ -19,11 +21,16 @@ def load_data(bucket_name, blob_name):
 try:
     df = load_data(BUCKET_NAME, BLOB_NAME)
     latest = df.iloc[-1]
-    st.title("🐻 Bullas Spank Monitor")
-    st.metric("1h Spank", latest["last_1h_spank_count"])
-    st.line_chart(df.set_index("timestamp")[["last_1h_spank_count"]])
+    st.title(f"🐻 Bullas Spank Monitor ({date_str})")
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("💥 1h Spank数", latest["last_1h_spank_count"])
+    col2.metric("🧍 ユニーク数", latest["unique_spanker_count_last_1h"])
+    col3.metric("🐋 ホエール数", latest["whale_spank_count_last_1h"])
+    col4.metric("⚡ Spank/分", latest["spank_per_minute"])
+    st.line_chart(df.set_index("timestamp")[["last_1h_spank_count", "regular_hit_count"]])
+    st.dataframe(df.tail(20), use_container_width=True)
 except Exception as e:
-    st.error(f"読み込み失敗: {e}")
+    st.error(f"⚠️ データ読み込み失敗: {e}")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
